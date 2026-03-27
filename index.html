@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just Travel With Sandy — Wireframe Prototype</title>
+<style>
+  :root {
+    --cream: #F5F5F5;
+    --warm-white: #FFFFFF;
+    --sand: #E8E8E8;
+    --sand-dark: #BBBBBB;
+    --bark: #888888;
+    --espresso: #1A1A1A;
+    --charcoal: #333333;
+    --muted: #666666;
+    --accent: #444444;
+    --accent-light: #EEEEEE;
+    --green-deep: #2A2A2A;
+    --border: rgba(0,0,0,0.12);
+    --border-strong: rgba(0,0,0,0.25);
+    --font-display: Georgia, 'Times New Roman', serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    --nav-h: 68px;
+    --transition: 0.25s ease;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--charcoal);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--nav-h);
+    background: var(--warm-white);
+    border-bottom: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 400; letter-spacing: 0.02em;
+    color: var(--espresso); cursor: pointer; white-space: nowrap;
+  }
+  .nav-logo span { font-style: italic; }
+  .nav-links {
+    display: flex; align-items: center; gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none; cursor: pointer;
+    transition: color var(--transition);
+  }
+  .nav-links a:hover { color: var(--espresso); }
+  .nav-cta {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--warm-white);
+    background: var(--espresso); border: none;
+    padding: 10px 20px; cursor: pointer;
+    transition: background var(--transition);
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--charcoal); }
+
+  /* ── PAGES ── */
+  .page { display: none; padding-top: var(--nav-h); min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; height: calc(100vh - var(--nav-h));
+    min-height: 560px;
+    display: flex; align-items: flex-end;
+    background: var(--espresso); overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, #2A2A2A 0%, #111111 60%, #3A3A3A 100%);
+  }
+  .hero-texture {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%);
+    background-size: 12px 12px;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 4rem 3rem; max-width: 680px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-tag {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--charcoal);
+    margin-bottom: 1.25rem;
+  }
+  .hero-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 300; line-height: 1.08;
+    color: var(--warm-white);
+    margin-bottom: 1.25rem;
+  }
+  .hero-h1 em { font-style: italic; color: #FFFFFF; }
+  .hero-sub {
+    font-size: 15px; font-weight: 300; line-height: 1.8;
+    color: rgba(255,255,255,0.72);
+    max-width: 480px; margin-bottom: 2rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    padding: 14px 28px; border: none;
+    background: var(--espresso); color: var(--warm-white);
+    transition: all var(--transition);
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #333333; }
+  .btn-outline {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    padding: 13px 28px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.85);
+    transition: all var(--transition);
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.65); color: var(--warm-white); }
+  .btn-dark {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    padding: 14px 28px; border: none;
+    background: var(--espresso); color: var(--warm-white);
+    transition: background var(--transition);
+    display: inline-block;
+  }
+  .btn-dark:hover { background: var(--charcoal); }
+  .btn-ghost {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    padding: 13px 28px;
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--charcoal);
+    transition: all var(--transition);
+    display: inline-block;
+  }
+  .btn-ghost:hover { background: var(--espresso); color: var(--warm-white); border-color: var(--espresso); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 5rem 3rem; }
+  .section-sm { padding: 3.5rem 3rem; }
+  .section-dark { background: var(--espresso); color: var(--warm-white); }
+  .section-sand { background: var(--sand); }
+  .section-accent { background: var(--accent-light); }
+  .section-green { background: var(--espresso); color: var(--warm-white); }
+  .container { max-width: 960px; margin: 0 auto; }
+  .container-sm { max-width: 720px; margin: 0 auto; }
+
+  /* ── TYPOGRAPHY ── */
+  .section-eyebrow {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .section-eyebrow.light { color: var(--sand-dark); }
+  .section-eyebrow.gold { color: var(--charcoal); }
+  .h2 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 400; line-height: 1.15;
+    color: var(--espresso);
+    margin-bottom: 1rem;
+  }
+  .h2 em { font-style: italic; }
+  .h2.light { color: var(--warm-white); }
+  .h3 {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 400; line-height: 1.25;
+    color: var(--espresso); margin-bottom: 0.75rem;
+  }
+  .h3 em { font-style: italic; }
+  .h3.light { color: var(--warm-white); }
+  .lead {
+    font-size: 16px; font-weight: 300; line-height: 1.8;
+    color: var(--muted); max-width: 560px;
+  }
+  .lead.light { color: rgba(255,255,255,0.72); }
+  .body-text { font-size: 15px; font-weight: 300; line-height: 1.85; color: var(--muted); }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    background: var(--warm-white);
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    padding: 1.25rem 3rem;
+    display: flex; align-items: center; justify-content: center;
+    gap: 3rem; flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.06em;
+    color: var(--charcoal);
+  }
+  .trust-dot { width: 4px; height: 4px; background: var(--charcoal); border-radius: 50%; }
+
+  /* ── GRID ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .grid-aside { display: grid; grid-template-columns: 1fr 360px; gap: 3rem; align-items: start; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--warm-white);
+    border: 0.5px solid var(--border);
+    padding: 2rem;
+  }
+  .card-dark {
+    background: rgba(255,255,255,0.06);
+    border: 0.5px solid rgba(255,255,255,0.12);
+    padding: 2rem;
+  }
+  .card-sand { background: var(--sand); border: none; padding: 2rem; }
+  .trip-card {
+    background: var(--warm-white);
+    border: 0.5px solid var(--border);
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+    cursor: pointer;
+  }
+  .trip-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+  .trip-img {
+    height: 200px;
+    display: flex; align-items: flex-end; justify-content: flex-start;
+    padding: 1rem; position: relative;
+    overflow: hidden;
+  }
+  .trip-img-china { background: linear-gradient(160deg, #2A2A2A 0%, #444444 100%); }
+  .trip-img-xmas { background: linear-gradient(160deg, #222222 0%, #3A3A3A 100%); }
+  .trip-img-peru { background: linear-gradient(160deg, #333333 0%, #555555 100%); }
+  .trip-img-france { background: linear-gradient(160deg, #1A1A1A 0%, #2A2A2A 100%); }
+  .trip-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 1px, transparent 0, transparent 50%);
+    background-size: 10px 10px;
+  }
+  .trip-badge {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 4px 10px;
+    background: var(--espresso); color: var(--warm-white);
+    position: relative; z-index: 1;
+  }
+  .trip-body { padding: 1.5rem; }
+  .trip-title {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 400;
+    color: var(--espresso); margin-bottom: 0.35rem;
+  }
+  .trip-date {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .trip-desc { font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--muted); margin-bottom: 1.25rem; }
+  .trip-price {
+    font-family: var(--font-display);
+    font-size: 18px; font-weight: 400; color: var(--espresso);
+    margin-bottom: 1rem;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonial { padding: 2rem; border-left: 2px solid var(--charcoal); }
+  .testimonial-text {
+    font-family: var(--font-display);
+    font-size: 18px; font-style: italic; font-weight: 300;
+    line-height: 1.65; color: var(--charcoal); margin-bottom: 1rem;
+  }
+  .testimonial-text.light { color: var(--warm-white); }
+  .testimonial-attr {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .testimonial-attr.light { color: var(--sand-dark); }
+
+  /* ── OFFER CARDS ── */
+  .offer-card {
+    border: 0.5px solid var(--border);
+    background: var(--warm-white);
+    padding: 2.5rem;
+    transition: all var(--transition);
+  }
+  .offer-card.featured {
+    border: 1.5px solid var(--espresso);
+    background: var(--espresso); color: var(--warm-white);
+  }
+  .offer-tag {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--charcoal);
+    margin-bottom: 1rem; display: block;
+  }
+  .offer-title {
+    font-family: var(--font-display);
+    font-size: 26px; font-weight: 400; line-height: 1.2;
+    color: var(--espresso); margin-bottom: 1rem;
+  }
+  .offer-card.featured .offer-title { color: var(--warm-white); }
+  .offer-desc { font-size: 14px; font-weight: 300; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem; }
+  .offer-card.featured .offer-desc { color: rgba(255,255,255,0.72); }
+  .offer-list { list-style: none; margin-bottom: 2rem; }
+  .offer-list li {
+    font-size: 13px; font-weight: 300; color: var(--muted);
+    padding: 0.4rem 0; border-bottom: 0.5px solid var(--border);
+    padding-left: 1rem; position: relative;
+  }
+  .offer-card.featured .offer-list li { color: rgba(255,255,255,0.72); border-color: rgba(255,255,255,0.1); }
+  .offer-list li::before { content: '—'; position: absolute; left: 0; color: var(--charcoal); }
+
+  /* ── PROCESS ── */
+  .process-step { display: flex; gap: 1.5rem; align-items: flex-start; padding: 1.5rem 0; border-bottom: 0.5px solid var(--border); }
+  .process-step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: var(--font-display);
+    font-size: 48px; font-weight: 300; line-height: 1;
+    color: var(--sand-dark); min-width: 56px;
+  }
+  .step-content h4 {
+    font-family: var(--font-display);
+    font-size: 20px; font-weight: 400;
+    color: var(--espresso); margin-bottom: 0.35rem;
+  }
+  .step-content p { font-size: 14px; font-weight: 300; line-height: 1.8; color: var(--muted); }
+
+  /* ── FAQ ── */
+  .faq-item { border-bottom: 0.5px solid var(--border); }
+  .faq-q {
+    padding: 1rem 0; cursor: pointer;
+    font-size: 15px; font-weight: 400; color: var(--espresso);
+    display: flex; justify-content: space-between; align-items: center;
+    user-select: none;
+  }
+  .faq-q:hover { color: var(--muted); }
+  .faq-icon { font-size: 20px; color: var(--muted); line-height: 1; transition: transform var(--transition); }
+  .faq-a {
+    display: none;
+    padding: 0 0 1rem;
+    font-size: 14px; font-weight: 300; line-height: 1.8;
+    color: var(--muted);
+  }
+  .faq-a.open { display: block; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+  /* ── FORM ── */
+  .form-group { display: flex; gap: 0; }
+  .form-input {
+    font-family: var(--font-body);
+    font-size: 13px; padding: 13px 16px;
+    border: 1px solid var(--border-strong); border-right: none;
+    background: var(--warm-white); color: var(--espresso);
+    outline: none; flex: 1;
+  }
+  .form-input:focus { border-color: var(--muted); }
+  .form-input::placeholder { color: var(--sand-dark); }
+  .form-input-name {
+    font-family: var(--font-body);
+    font-size: 13px; padding: 13px 16px;
+    border: 1px solid var(--border-strong);
+    background: var(--warm-white); color: var(--espresso);
+    outline: none; width: 100%; margin-bottom: 0.75rem;
+  }
+  .form-input-name:focus { border-color: var(--muted); }
+  .form-input-name::placeholder { color: var(--sand-dark); }
+
+  /* ── BOOKING WIDGET ── */
+  .booking-widget {
+    background: #EEEEEE;
+    border: 1px solid #CCCCCC;
+    padding: 2.5rem; text-align: center;
+  }
+  .booking-widget h3 {
+    font-family: var(--font-display);
+    font-size: 26px; font-weight: 400; color: var(--espresso);
+    margin-bottom: 0.5rem;
+  }
+  .booking-widget p { font-size: 13px; color: var(--muted); margin-bottom: 1.5rem; }
+  .booking-slots { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .slot {
+    font-size: 12px; font-weight: 500; padding: 10px;
+    border: 1px solid var(--border-strong); background: var(--warm-white);
+    cursor: pointer; color: var(--charcoal); text-align: center;
+    transition: all var(--transition);
+  }
+  .slot:hover, .slot.selected { background: var(--espresso); color: var(--warm-white); border-color: var(--espresso); }
+
+  /* ── LEAD MAGNET BANNER ── */
+  .lead-magnet {
+    background: var(--espresso);
+    padding: 3rem; display: flex;
+    align-items: center; justify-content: space-between;
+    gap: 2rem; flex-wrap: wrap;
+  }
+  .lead-magnet-text h3 {
+    font-family: var(--font-display);
+    font-size: 26px; font-weight: 400;
+    color: var(--warm-white); margin-bottom: 0.35rem;
+  }
+  .lead-magnet-text p { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.65); }
+
+  /* ── BLOG CARD ── */
+  .blog-card {
+    border: 0.5px solid var(--border); background: var(--warm-white);
+    overflow: hidden; cursor: pointer;
+    transition: transform var(--transition);
+  }
+  .blog-card:hover { transform: translateY(-3px); }
+  .blog-img { height: 160px; background: var(--sand); display: flex; align-items: center; justify-content: center; }
+  .blog-body { padding: 1.25rem; }
+  .blog-tag {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem;
+  }
+  .blog-title {
+    font-family: var(--font-display);
+    font-size: 18px; font-weight: 400; line-height: 1.3;
+    color: var(--espresso); margin-bottom: 0.5rem;
+  }
+  .blog-meta { font-size: 11px; color: var(--sand-dark); }
+
+  /* ── GUIDE CARD ── */
+  .guide-card {
+    border: 0.5px solid var(--border); background: var(--warm-white);
+    overflow: hidden;
+  }
+  .guide-cover { height: 180px; display: flex; align-items: center; justify-content: center; }
+  .guide-cover-1 { background: linear-gradient(135deg, #222222, #444444); }
+  .guide-cover-2 { background: linear-gradient(135deg, #333333, #555555); }
+  .guide-cover-free { background: linear-gradient(135deg, #555555, #777777); }
+  .guide-cover-title {
+    font-family: var(--font-display);
+    font-size: 16px; font-style: italic; font-weight: 300;
+    color: rgba(255,255,255,0.85); text-align: center; padding: 1rem;
+    line-height: 1.4;
+  }
+  .guide-body { padding: 1.25rem; }
+  .guide-title {
+    font-family: var(--font-display);
+    font-size: 20px; font-weight: 400; color: var(--espresso); margin-bottom: 0.35rem;
+  }
+  .guide-desc { font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--muted); margin-bottom: 1rem; }
+  .guide-price {
+    font-size: 18px; font-family: var(--font-display);
+    color: var(--espresso); margin-bottom: 1rem;
+  }
+
+  /* ── ABOUT ── */
+  .about-hero {
+    background: linear-gradient(160deg, #1A1A1A 0%, #3A3A3A 100%);
+    padding: 5rem 3rem;
+    display: grid; grid-template-columns: 1fr 320px; gap: 4rem;
+    align-items: end;
+  }
+  .about-photo-placeholder {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    height: 380px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: rgba(255,255,255,0.4);
+    letter-spacing: 0.06em;
+  }
+  .credential-item {
+    padding: 1.25rem 0; border-bottom: 0.5px solid var(--border);
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .cred-bullet {
+    width: 6px; height: 6px; background: var(--charcoal);
+    border-radius: 50%; margin-top: 7px; flex-shrink: 0;
+  }
+
+  /* ── FILTERS ── */
+  .filter-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .filter-pill {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 7px 16px;
+    border: 1px solid var(--border-strong);
+    background: transparent; color: var(--muted);
+    cursor: pointer; transition: all var(--transition);
+  }
+  .filter-pill.active, .filter-pill:hover {
+    background: var(--espresso); color: var(--warm-white);
+    border-color: var(--espresso);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--espresso); padding: 3.5rem 3rem 2rem;
+    color: rgba(255,255,255,0.6);
+  }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 2.5rem; }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 400; color: var(--warm-white);
+    margin-bottom: 0.75rem;
+  }
+  .footer-logo span { font-style: italic; }
+  .footer-tagline { font-size: 13px; font-weight: 300; line-height: 1.7; margin-bottom: 1.25rem; }
+  .footer-h { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-white); margin-bottom: 1rem; }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 0.5rem; }
+  .footer-links a { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.6); text-decoration: none; cursor: pointer; transition: color var(--transition); }
+  .footer-links a:hover { color: var(--warm-white); }
+  .footer-bottom { border-top: 0.5px solid rgba(255,255,255,0.1); padding-top: 1.25rem; display: flex; justify-content: space-between; align-items: center; font-size: 12px; flex-wrap: wrap; gap: 0.5rem; }
+  .footer-legal { display: flex; gap: 1.5rem; }
+  .footer-legal a { color: rgba(255,255,255,0.4); text-decoration: none; cursor: pointer; transition: color var(--transition); }
+  .footer-legal a:hover { color: rgba(255,255,255,0.8); }
+
+  /* ── EDIT MODE ── */
+  .edit-mode [contenteditable] {
+    outline: 1.5px dashed rgba(0,0,0,0.35);
+    outline-offset: 2px;
+    min-width: 20px; min-height: 16px;
+  }
+  .edit-mode [contenteditable]:focus {
+    outline: 2px solid var(--accent);
+    background: rgba(0,0,0,0.03);
+  }
+  .edit-bar {
+    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200;
+    display: flex; align-items: center; gap: 0.75rem;
+    background: var(--espresso); padding: 0.75rem 1.25rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .edit-bar-label { font-size: 12px; color: rgba(255,255,255,0.6); }
+  .edit-toggle {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 8px 16px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent; color: var(--warm-white);
+    cursor: pointer; transition: all var(--transition);
+  }
+  .edit-toggle:hover, .edit-toggle.active { background: var(--charcoal); border-color: var(--charcoal); color: var(--espresso); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── DIVIDER ── */
+  .divider-line { border: none; border-top: 0.5px solid var(--border); margin: 0; }
+  .spacer { height: 2rem; }
+
+  /* ── PROTO LABEL ── */
+  .proto-banner {
+    background: #EEEEEE;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 0.5rem 3rem;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    color: #555555; text-align: center;
+  }
+
+  /* ── RESPONSIVE HELPERS ── */
+  .text-center { text-align: center; }
+  .mb-1 { margin-bottom: 1rem; }
+  .mb-2 { margin-bottom: 2rem; }
+  .mb-3 { margin-bottom: 3rem; }
+  .mt-2 { margin-top: 2rem; }
+  .gap-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+  /* ── WHO FOR BULLETS ── */
+  .bullet-list { list-style: none; }
+  .bullet-list li {
+    font-size: 15px; font-weight: 300; line-height: 1.7;
+    color: var(--muted); padding: 0.5rem 0;
+    border-bottom: 0.5px solid var(--border);
+    padding-left: 1.25rem; position: relative;
+  }
+  .bullet-list li::before { content: '—'; position: absolute; left: 0; color: var(--charcoal); }
+  .bullet-list.light li { color: rgba(255,255,255,0.72); border-color: rgba(255,255,255,0.1); }
+  .bullet-list.light li::before { color: var(--charcoal); }
+
+  /* social icons row */
+  .social-row { display: flex; gap: 1.25rem; margin-top: 1rem; }
+  .social-icon {
+    width: 32px; height: 32px; border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: rgba(255,255,255,0.6);
+    cursor: pointer; transition: all var(--transition);
+  }
+  .social-icon:hover { border-color: var(--charcoal); color: var(--charcoal); }
+</style>
+</head>
+<body>
+
+<!-- PROTOTYPE BANNER -->
+<div class="proto-banner">
+  ✦ Prototype — Just Travel With Sandy &nbsp;|&nbsp; Click nav links to move between pages &nbsp;|&nbsp; Use Edit Mode to change copy
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">Just <span>Travel</span> With Sandy</div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('about')">About</a></li>
+    <li><a onclick="showPage('work')">Work With Me</a></li>
+    <li><a onclick="showPage('trips')">Group Trips</a></li>
+    <li><a onclick="showPage('guides')">Travel Guides</a></li>
+    <li><a onclick="showPage('blog')">Blog</a></li>
+  </ul>
+  <button class="nav-cta" onclick="showPage('work')">Book Your Dream Trip Call</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: HOME -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-texture"></div>
+    <div class="hero-content">
+      <div class="hero-tag" contenteditable="false">Luxury Travel Advisor &amp; Group Journey Leader</div>
+      <h1 class="hero-h1" contenteditable="false">Luxury Travel for Women<br>Who Want <em>More Than<br>Just a Vacation</em></h1>
+      <p class="hero-sub" contenteditable="false">Bespoke trip planning and curated group journeys — designed around your life, your pace, and the confidence to finally go.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="showPage('work')">Book Your Dream Trip Call — Free</button>
+        <button class="btn-outline" onclick="showPage('trips')">See Upcoming Group Trips</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trust Bar -->
+  <div class="trust-bar">
+    <div class="trust-item"><div class="trust-dot"></div><span contenteditable="false">200+ Trips Planned</span></div>
+    <div class="trust-item"><div class="trust-dot"></div><span contenteditable="false">15+ Countries</span></div>
+    <div class="trust-item"><div class="trust-dot"></div><span contenteditable="false">Author &amp; Podcast Host</span></div>
+    <div class="trust-item"><div class="trust-dot"></div><span contenteditable="false">Certified Luxury Travel Advisor</span></div>
+  </div>
+
+  <!-- Problem -->
+  <div class="section">
+    <div class="container-sm">
+      <div class="section-eyebrow" contenteditable="false">Sound familiar?</div>
+      <h2 class="h2 mb-1" contenteditable="false">You've been dreaming about<br>this trip for years. <em>So why<br>haven't you gone?</em></h2>
+      <p class="lead mb-2" contenteditable="false">Too many options. Too many tabs. Too many "what ifs." You're not unmotivated — you're overwhelmed. And the longer you wait, the more that trip stays a dream instead of a memory.</p>
+      <p class="lead" contenteditable="false">Whether you want someone to handle every single detail or you just need a plan and a push — I've got you.</p>
+    </div>
+  </div>
+
+  <hr class="divider-line">
+
+  <!-- Two Ways -->
+  <div class="section section-sand">
+    <div class="container">
+      <div class="section-eyebrow text-center mb-2" contenteditable="false">Two ways to travel with Sandy</div>
+      <div class="grid-2">
+        <div class="offer-card featured">
+          <span class="offer-tag">Most popular</span>
+          <div class="offer-title" contenteditable="false">Private Luxury<br>Travel Planning</div>
+          <p class="offer-desc" contenteditable="false">Done-for-you, bespoke itineraries built around your style, your pace, and your life. You pack. I handle everything else.</p>
+          <ul class="offer-list">
+            <li contenteditable="false">Deep-dive planning session</li>
+            <li contenteditable="false">Fully custom itinerary</li>
+            <li contenteditable="false">All bookings &amp; logistics handled</li>
+            <li contenteditable="false">Pre-trip prep guide</li>
+            <li contenteditable="false">On-trip support</li>
+          </ul>
+          <button class="btn-primary" onclick="showPage('work')">Book Your Dream Trip Call</button>
+        </div>
+        <div class="offer-card">
+          <span class="offer-tag" style="color:var(--muted);">Group journeys</span>
+          <div class="offer-title" contenteditable="false">Curated Group<br>Travel Experiences</div>
+          <p class="offer-desc" contenteditable="false">Thoughtfully planned trips with a community of like-minded women. Connection, confidence, and zero planning stress — included.</p>
+          <ul class="offer-list">
+            <li contenteditable="false">Small, intimate groups</li>
+            <li contenteditable="false">Sandy leads every journey</li>
+            <li contenteditable="false">Off the beaten path destinations</li>
+            <li contenteditable="false">All logistics handled</li>
+            <li contenteditable="false">Built-in community</li>
+          </ul>
+          <button class="btn-dark" onclick="showPage('trips')">See Upcoming Group Trips</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Differentiator -->
+  <div class="section">
+    <div class="container">
+      <div class="grid-2" style="gap:4rem; align-items:center;">
+        <div>
+          <div class="section-eyebrow mb-1" contenteditable="false">Why travel with Sandy</div>
+          <h2 class="h2 mb-1" contenteditable="false">I don't just plan trips.<br><em>I design experiences<br>that stay with you.</em></h2>
+          <p class="body-text mb-2" contenteditable="false">Most travel advisors hand you an itinerary and wish you luck. I do something different. I work with the whole picture — your comfort level, your pace, your goals — so that every trip feels effortless before you even board the plane.</p>
+          <p class="body-text mb-2" contenteditable="false">My clients don't just return with photos. They return changed.</p>
+          <button class="btn-ghost" onclick="showPage('about')">Meet Sandy</button>
+        </div>
+        <div style="background:var(--sand); height:400px; display:flex; align-items:center; justify-content:center; color:var(--sand-dark); font-size:13px; letter-spacing:0.08em;">
+          [ Sandy's photo ]
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="section section-dark">
+    <div class="container">
+      <div class="section-eyebrow light text-center mb-2" contenteditable="false">What clients are saying</div>
+      <div class="grid-3">
+        <div class="testimonial">
+          <p class="testimonial-text light" contenteditable="false">"Everything just made sense. It was supportive, down-to-earth, and honestly shifted how I see travel and myself."</p>
+          <div class="testimonial-attr light" contenteditable="false">— Robin T.</div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial-text light" contenteditable="false">"Sandy handled every single detail and I didn't have to think about a thing. It was the most relaxed I've ever been on a trip."</p>
+          <div class="testimonial-attr light" contenteditable="false">— [Client Name], [City]</div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial-text light" contenteditable="false">"The group trip exceeded every expectation. The women I met, the places we went — I came home a different person."</p>
+          <div class="testimonial-attr light" contenteditable="false">— [Client Name], [Trip Name]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lead Magnet -->
+  <div class="lead-magnet">
+    <div class="lead-magnet-text">
+      <h3 contenteditable="false">Not ready to book yet? Start here — it's free.</h3>
+      <p contenteditable="false">Download <em>The Confident Traveler's Guide</em> — 5 things every woman should know before booking a luxury trip abroad.</p>
+    </div>
+    <div style="display:flex; gap:0; flex-shrink:0;">
+      <input class="form-input" type="email" placeholder="Your email address" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); color:var(--warm-white); width:260px;">
+      <button class="btn-primary" style="white-space:nowrap;">Download Free Guide</button>
+    </div>
+  </div>
+
+  <!-- Upcoming Trips Preview -->
+  <div class="section">
+    <div class="container">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:2rem;">
+        <div>
+          <div class="section-eyebrow mb-1" contenteditable="false">Upcoming group journeys</div>
+          <h2 class="h2" style="margin-bottom:0;" contenteditable="false">Travel somewhere <em>extraordinary</em></h2>
+        </div>
+        <button class="btn-ghost" onclick="showPage('trips')">View All Trips</button>
+      </div>
+      <div class="grid-3">
+        <div class="trip-card" onclick="showPage('trips')">
+          <div class="trip-img trip-img-china">
+            <div class="trip-badge" contenteditable="false">Filling Fast</div>
+          </div>
+          <div class="trip-body">
+            <div class="trip-date" contenteditable="false">September 2026</div>
+            <div class="trip-title" contenteditable="false">The Real China</div>
+            <p class="trip-desc" contenteditable="false">An intimate journey through China's most authentic landscapes, culture, and cuisine — beyond what any guidebook shows you.</p>
+            <button class="btn-ghost" style="font-size:11px; padding:9px 18px;" onclick="showPage('trips')">Learn More</button>
+          </div>
+        </div>
+        <div class="trip-card" onclick="showPage('trips')">
+          <div class="trip-img trip-img-xmas"></div>
+          <div class="trip-body">
+            <div class="trip-date" contenteditable="false">December 2026</div>
+            <div class="trip-title" contenteditable="false">Christmas Markets</div>
+            <p class="trip-desc" contenteditable="false">Off the beaten track holiday magic across Europe's most enchanting seasonal markets — curated for depth, not crowds.</p>
+            <button class="btn-ghost" style="font-size:11px; padding:9px 18px;" onclick="showPage('trips')">Learn More</button>
+          </div>
+        </div>
+        <div class="trip-card" onclick="showPage('trips')">
+          <div class="trip-img trip-img-peru"></div>
+          <div class="trip-body">
+            <div class="trip-date" contenteditable="false">2026</div>
+            <div class="trip-title" contenteditable="false">Sacred Valley, Peru</div>
+            <p class="trip-desc" contenteditable="false">Ignite Your Life — a transformative journey through one of the world's most sacred and breathtaking landscapes.</p>
+            <button class="btn-ghost" style="font-size:11px; padding:9px 18px;" onclick="showPage('trips')">Learn More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final CTA -->
+  <div class="section section-accent text-center">
+    <div class="container-sm">
+      <div class="section-eyebrow gold mb-1" contenteditable="false">One conversation changes everything</div>
+      <h2 class="h2 mb-1" contenteditable="false">The only thing standing between you and the trip of your life <em>is one conversation.</em></h2>
+      <p class="lead text-center mb-2" style="margin:0 auto 2rem;" contenteditable="false">Your Dream Trip Planning Call is free, pressure-free, and 30 minutes. We'll talk about where you want to go, what's holding you back, and exactly what working together would look like.</p>
+      <button class="btn-dark" onclick="showPage('work')">Book Your Dream Trip Call</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Just <span>Travel</span> With Sandy</div>
+        <p class="footer-tagline" contenteditable="false">Luxury travel planning and curated group journeys for women ready to experience the world with confidence and ease.</p>
+        <div class="social-row">
+          <div class="social-icon">f</div>
+          <div class="social-icon">in</div>
+          <div class="social-icon">ig</div>
+          <div class="social-icon">▶</div>
+          <div class="social-icon">tt</div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-h">Explore</div>
+        <ul class="footer-links">
+          <li><a onclick="showPage('about')">About Sandy</a></li>
+          <li><a onclick="showPage('work')">Work With Me</a></li>
+          <li><a onclick="showPage('trips')">Group Trips</a></li>
+          <li><a onclick="showPage('guides')">Travel Guides</a></li>
+          <li><a onclick="showPage('blog')">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <ul class="footer-links">
+          <li><a>Podcast</a></li>
+          <li><a>Sandy's Book</a></li>
+          <li><a>Free Travel Guide</a></li>
+          <li><a>Trips &amp; Sips Events</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-h">Get the Free Guide</div>
+        <p style="font-size:13px; margin-bottom:0.75rem; line-height:1.7;" contenteditable="false">The Confident Traveler's Guide — free when you join the list.</p>
+        <input class="form-input-name" type="email" placeholder="Your email" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.15); color:var(--warm-white);">
+        <button class="btn-primary" style="width:100%;">Subscribe</button>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Just Travel With Sandy, LLC</span>
+      <div class="footer-legal">
+        <a>Privacy Policy</a>
+        <a>Terms &amp; Conditions</a>
+        <a>Disclaimer</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: ABOUT -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-about" class="page">
+
+  <div class="about-hero">
+    <div>
+      <div class="section-eyebrow light mb-1" contenteditable="false">Meet Sandy</div>
+      <h1 class="hero-h1" contenteditable="false">I'm Sandy — and I believe travel should change you, <em>not stress you out.</em></h1>
+      <p class="hero-sub mt-2" contenteditable="false">Luxury travel advisor and the person who makes sure you actually go.</p>
+    </div>
+    <div class="about-photo-placeholder">[ Sandy's photo ]</div>
+  </div>
+
+  <!-- Story -->
+  <div class="section">
+    <div class="container">
+      <div class="grid-2" style="gap:4rem;">
+        <div>
+          <div class="section-eyebrow mb-1" contenteditable="false">Her story</div>
+          <h2 class="h2 mb-1" contenteditable="false">I know exactly what it feels like to want to go — <em>and talk yourself out of it.</em></h2>
+        </div>
+        <div>
+          <p class="body-text mb-2" contenteditable="false">[Paragraph 1: Sandy's personal turning point with travel — the moment it became about more than sightseeing. Write in first person, warm and honest.]</p>
+          <p class="body-text mb-2" contenteditable="false">[Paragraph 2: What she discovered — that travel is a mindset shift, not just a ticket and a hotel. How she started helping others experience the same.]</p>
+          <p class="body-text mb-2" contenteditable="false">[Paragraph 3: Who she works with — women navigating life transitions, families, women who've never traveled solo but always wanted to.]</p>
+          <p class="body-text" contenteditable="false">[Paragraph 4: Her philosophy in one sentence — the emotional promise she makes every client.]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider-line">
+
+  <!-- Credentials -->
+  <div class="section section-sand">
+    <div class="container">
+      <div class="section-eyebrow mb-1" contenteditable="false">Credentials &amp; expertise</div>
+      <h2 class="h2 mb-2" contenteditable="false">What I bring to <em>every trip I plan</em></h2>
+      <div class="grid-2">
+        <div>
+          <div class="credential-item"><div class="cred-bullet"></div><div><strong contenteditable="false">[Certification or license]</strong><br><span class="body-text" contenteditable="false">e.g. ASTA Member, Certified Luxury Travel Advisor</span></div></div>
+          <div class="credential-item"><div class="cred-bullet"></div><div><strong contenteditable="false">[Years of experience] years in luxury travel</strong><br><span class="body-text" contenteditable="false">Specializing in women's travel, group journeys, and complex destinations</span></div></div>
+          <div class="credential-item"><div class="cred-bullet"></div><div><strong contenteditable="false">[X] countries visited personally</strong><br><span class="body-text" contenteditable="false">Firsthand experience in every destination she recommends</span></div></div>
+        </div>
+        <div>
+          <div class="credential-item"><div class="cred-bullet"></div><div><strong contenteditable="false">Author of [Book Title]</strong><br><span class="body-text" contenteditable="false">Available on [platforms] — a guide to confident, intentional travel</span></div></div>
+          <div class="credential-item"><div class="cred-bullet"></div><div><strong contenteditable="false">Host of [Podcast Name]</strong><br><span class="body-text" contenteditable="false">Weekly conversations about travel, mindset, and living expansively</span></div></div>
+          <div class="credential-item"><div class="cred-bullet"></div><div><strong contenteditable="false">Founder, Trips &amp; Sips Virtual Community</strong><br><span class="body-text" contenteditable="false">A free weekly meetup for intentional travelers — Tuesdays &amp; Saturdays</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Who this is for -->
+  <div class="section">
+    <div class="container">
+      <div class="grid-2" style="gap:4rem; align-items:start;">
+        <div>
+          <div class="section-eyebrow mb-1" contenteditable="false">Who Sandy works with</div>
+          <h2 class="h2 mb-2" contenteditable="false">You might be exactly who I work with <em>if...</em></h2>
+          <ul class="bullet-list">
+            <li contenteditable="false">You've been saying "I want to travel more" for years and keep putting it off</li>
+            <li contenteditable="false">You want luxury without the overwhelm of planning it yourself</li>
+            <li contenteditable="false">You're in a new chapter — empty nest, retirement, or post-divorce — and ready to invest in yourself</li>
+            <li contenteditable="false">You want to travel with a group of like-minded women who actually get it</li>
+            <li contenteditable="false">You're a family looking for a curated, stress-free experience everyone will remember</li>
+          </ul>
+        </div>
+        <div class="card" style="padding:2.5rem;">
+          <div class="section-eyebrow mb-1" contenteditable="false">A little more about Sandy</div>
+          <h3 class="h3 mb-1" contenteditable="false">When I'm not planning someone's dream trip...</h3>
+          <p class="body-text" contenteditable="false">[Sandy's personal details — where she lives, what she loves, what makes her human. Keep this short, warm, and genuine.]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Book + Podcast -->
+  <div class="section section-dark">
+    <div class="container">
+      <div class="grid-2">
+        <div class="card-dark">
+          <div class="section-eyebrow gold mb-1" contenteditable="false">Podcast</div>
+          <h3 class="h3 light mb-1" contenteditable="false">[Podcast Name]</h3>
+          <p class="body-text light mb-2" contenteditable="false">Weekly conversations about travel, mindset, and how to experience the world with confidence — for women ready for more.</p>
+          <button class="btn-outline">Listen Now</button>
+        </div>
+        <div class="card-dark">
+          <div class="section-eyebrow gold mb-1" contenteditable="false">Book</div>
+          <h3 class="h3 light mb-1" contenteditable="false">[Book Title]</h3>
+          <p class="body-text light mb-2" contenteditable="false">[One sentence on what the book helps readers do and who it's for. Connect it directly to the transformation Sandy offers.]</p>
+          <button class="btn-outline">Get the Book</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="section section-accent text-center">
+    <div class="container-sm">
+      <h2 class="h2 mb-1" contenteditable="false">Ready to plan a trip <em>that actually happens?</em></h2>
+      <p class="lead text-center mb-2" style="margin:0 auto 2rem;" contenteditable="false">Let's talk. Your Dream Trip Planning Call is free, 30 minutes, and the first step toward travel that feels like you.</p>
+      <button class="btn-dark" onclick="showPage('work')">Book Your Dream Trip Call</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-bottom">
+      <span>© 2026 Just Travel With Sandy, LLC</span>
+      <div class="footer-legal"><a>Privacy Policy</a><a>Terms</a><a>Disclaimer</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: WORK WITH ME -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-work" class="page">
+
+  <!-- Intro -->
+  <div class="section section-dark">
+    <div class="container-sm">
+      <div class="section-eyebrow light mb-1" contenteditable="false">Work With Sandy</div>
+      <h1 class="h2 light mb-1" contenteditable="false">Luxury travel planning that handles everything — <em>so you can just show up and enjoy it.</em></h1>
+      <p class="lead light" contenteditable="false">Whether you're planning a private trip, a family journey, or looking to join a curated group experience — there's a way to travel with Sandy that's built for you.</p>
+    </div>
+  </div>
+
+  <!-- Offer 1 — Featured -->
+  <div class="section section-accent">
+    <div class="container">
+      <div class="grid-2" style="gap:3rem; align-items:start;">
+        <div>
+          <span class="offer-tag" style="color:var(--muted); font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; display:block; margin-bottom:0.75rem;" contenteditable="false">★ Most popular</span>
+          <h2 class="h2 mb-1" contenteditable="false">Private Luxury<br><em>Travel Planning</em></h2>
+          <p class="body-text mb-2" contenteditable="false">For travelers who want every detail handled — from flights and hotels to experiences and contingency plans — so you can be fully present from the moment you leave home.</p>
+          <p class="body-text mb-2" contenteditable="false">Perfect for women 45+, couples, and families who value their time, love luxury, and refuse to spend hours on TripAdvisor.</p>
+          <button class="btn-dark" onclick="scrollToBooking()">Book Your Dream Trip Call</button>
+        </div>
+        <div class="card">
+          <div class="section-eyebrow mb-1" contenteditable="false">What's included</div>
+          <ul class="offer-list">
+            <li contenteditable="false">A deep-dive planning session to understand your travel style, preferences, and goals</li>
+            <li contenteditable="false">A fully custom itinerary with hand-selected accommodations, experiences, and dining</li>
+            <li contenteditable="false">Vendor research, booking management, and confirmation tracking</li>
+            <li contenteditable="false">Pre-trip prep guide and packing support</li>
+            <li contenteditable="false">On-trip support if anything needs to change</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Offer 2 -->
+  <div class="section">
+    <div class="container">
+      <div class="grid-2" style="gap:3rem; align-items:start;">
+        <div class="card" style="height:100%;">
+          <div class="section-eyebrow mb-1" contenteditable="false">What makes these trips different</div>
+          <ul class="offer-list">
+            <li contenteditable="false">Small, intimate groups — never lost in a crowd</li>
+            <li contenteditable="false">Sandy leads every journey personally</li>
+            <li contenteditable="false">Off-the-beaten-path destinations and experiences</li>
+            <li contenteditable="false">Thoughtfully paced — no rushing, no overwhelm</li>
+            <li contenteditable="false">Built-in community with like-minded women</li>
+            <li contenteditable="false">All logistics handled before you arrive</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-eyebrow mb-1" contenteditable="false">Group journeys</div>
+          <h2 class="h2 mb-1" contenteditable="false">Curated Group<br><em>Travel Experiences</em></h2>
+          <p class="body-text mb-2" contenteditable="false">For women who want an extraordinary travel experience without the solo planning — and the bonus of sharing it with a community of like-minded women who actually get it.</p>
+          <button class="btn-dark" onclick="showPage('trips')">See Upcoming Group Trips</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Process -->
+  <div class="section">
+    <div class="container">
+      <div class="grid-2" style="gap:4rem; align-items:start;">
+        <div>
+          <div class="section-eyebrow mb-1" contenteditable="false">The process</div>
+          <h2 class="h2" contenteditable="false">What happens after <em>you book your call</em></h2>
+        </div>
+        <div>
+          <div class="process-step">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <h4 contenteditable="false">We talk.</h4>
+              <p contenteditable="false">Your free 30-minute Dream Trip Planning Call. No pressure, no pitch. Just a real conversation about where you want to go and what you need.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <h4 contenteditable="false">I design.</h4>
+              <p contenteditable="false">If we're a fit, I build your completely custom itinerary. Every detail curated around your preferences, pace, and travel style.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <h4 contenteditable="false">You go.</h4>
+              <p contenteditable="false">I handle the details. You show up, enjoy every moment, and come home changed.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section section-sand">
+    <div class="container-sm">
+      <div class="section-eyebrow mb-1" contenteditable="false">Questions</div>
+      <h2 class="h2 mb-2" contenteditable="false">Things I hear <em>all the time</em></h2>
+      <div id="faq-work">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span contenteditable="false">Do you charge a planning fee?</span><span class="faq-icon">+</span></div>
+          <div class="faq-a" contenteditable="false">[Sandy's answer — be specific about fee structure]</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span contenteditable="false">What destinations do you specialize in?</span><span class="faq-icon">+</span></div>
+          <div class="faq-a" contenteditable="false">[Sandy's answer — list specialties including destinations that feel intimidating]</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span contenteditable="false">Can you help with family travel, not just solo women?</span><span class="faq-icon">+</span></div>
+          <div class="faq-a" contenteditable="false">Absolutely. While my primary focus is women's travel, I also work with families who want a curated, stress-free luxury experience. Book a call and we'll talk through what that looks like for your family.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span contenteditable="false">What if I don't know where I want to go yet?</span><span class="faq-icon">+</span></div>
+          <div class="faq-a" contenteditable="false">That's exactly what the Dream Trip Planning Call is for. Many of my clients come in with a feeling, not a destination. We figure it out together.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span contenteditable="false">How far in advance should I reach out?</span><span class="faq-icon">+</span></div>
+          <div class="faq-a" contenteditable="false">[Sandy's answer — typical lead time for planning]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Widget -->
+  <div class="section" id="booking-section">
+    <div class="container-sm">
+      <div class="section-eyebrow text-center mb-1" contenteditable="false">Book your call</div>
+      <h2 class="h2 text-center mb-2" contenteditable="false">Your dream trip is <em>one conversation away.</em></h2>
+      <div class="booking-widget">
+        <h3 contenteditable="false">Dream Trip Planning Call</h3>
+        <p contenteditable="false">30 minutes · Free · No obligation — just clarity on what's possible</p>
+        <div class="booking-slots">
+          <div class="slot" onclick="selectSlot(this)">Mon, Jul 14 · 10:00 AM</div>
+          <div class="slot" onclick="selectSlot(this)">Mon, Jul 14 · 2:00 PM</div>
+          <div class="slot" onclick="selectSlot(this)">Tue, Jul 15 · 11:00 AM</div>
+          <div class="slot" onclick="selectSlot(this)">Wed, Jul 16 · 9:00 AM</div>
+          <div class="slot" onclick="selectSlot(this)">Thu, Jul 17 · 3:00 PM</div>
+          <div class="slot" onclick="selectSlot(this)">Fri, Jul 18 · 10:00 AM</div>
+        </div>
+        <p style="font-size:12px; color:var(--muted); margin-bottom:1rem;" contenteditable="false">* In the live site, this embeds Sandy's actual booking scheduler (e.g. Calendly)</p>
+        <button class="btn-dark">Confirm My Spot</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <span>© 2026 Just Travel With Sandy, LLC</span>
+      <div class="footer-legal"><a>Privacy Policy</a><a>Terms</a><a>Disclaimer</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: GROUP TRIPS -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-trips" class="page">
+
+  <div class="hero" style="min-height:400px;">
+    <div class="hero-bg" style="background:linear-gradient(160deg, #1A1A1A 0%, #3A3A3A 100%);"></div>
+    <div class="hero-texture"></div>
+    <div class="hero-content">
+      <div class="hero-tag" contenteditable="false">Group Journeys</div>
+      <h1 class="hero-h1" contenteditable="false">Curated Group Travel for Women<br>Who Want to Go — <em>Without Going Alone</em></h1>
+      <p class="hero-sub" contenteditable="false">Small-group luxury experiences, led by Sandy. Thoughtfully paced, beautifully planned, and designed to go deeper than any tour.</p>
+      <button class="btn-primary">See Upcoming Trips ↓</button>
+    </div>
+  </div>
+
+  <!-- What makes it different -->
+  <div class="section">
+    <div class="container">
+      <div class="section-eyebrow text-center mb-1" contenteditable="false">The Sandy difference</div>
+      <h2 class="h2 text-center mb-2" contenteditable="false">This isn't a tour group. <em>It's a curated experience.</em></h2>
+      <div class="grid-4">
+        <div class="card text-center" style="padding:1.5rem;">
+          <div style="font-family:var(--font-display); font-size:32px; margin-bottom:0.5rem; color:var(--muted);">∞</div>
+          <strong contenteditable="false">Small &amp; intimate</strong>
+          <p class="body-text" style="font-size:13px; margin-top:0.35rem;" contenteditable="false">Spots are limited so every traveler gets personal attention</p>
+        </div>
+        <div class="card text-center" style="padding:1.5rem;">
+          <div style="font-family:var(--font-display); font-size:32px; margin-bottom:0.5rem; color:var(--muted);">✦</div>
+          <strong contenteditable="false">Sandy leads every trip</strong>
+          <p class="body-text" style="font-size:13px; margin-top:0.35rem;" contenteditable="false">You're not handed off — Sandy is with you every step</p>
+        </div>
+        <div class="card text-center" style="padding:1.5rem;">
+          <div style="font-family:var(--font-display); font-size:32px; margin-bottom:0.5rem; color:var(--muted);">◈</div>
+          <strong contenteditable="false">Off the beaten path</strong>
+          <p class="body-text" style="font-size:13px; margin-top:0.35rem;" contenteditable="false">Destinations chosen for depth, not just what everyone else does</p>
+        </div>
+        <div class="card text-center" style="padding:1.5rem;">
+          <div style="font-family:var(--font-display); font-size:32px; margin-bottom:0.5rem; color:var(--muted);">○</div>
+          <strong contenteditable="false">Zero logistics stress</strong>
+          <p class="body-text" style="font-size:13px; margin-top:0.35rem;" contenteditable="false">Every detail handled before you arrive</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trips Grid -->
+  <div class="section section-sand">
+    <div class="container">
+      <div class="section-eyebrow mb-2" contenteditable="false">Upcoming group journeys</div>
+      <div class="grid-2">
+        <div class="trip-card">
+          <div class="trip-img trip-img-china" style="height:240px;">
+            <div class="trip-badge" contenteditable="false">Filling Fast</div>
+          </div>
+          <div class="trip-body">
+            <div class="trip-date" contenteditable="false">September 2026 · 10 Days</div>
+            <div class="trip-title" contenteditable="false">The Real China</div>
+            <p class="trip-desc" contenteditable="false">An intimate journey through China's most authentic landscapes, culture, and cuisine. Beyond what any guidebook shows you — designed for women who want to experience this extraordinary country with confidence and ease.</p>
+            <div class="trip-price" contenteditable="false">From $[X] per person</div>
+            <div style="display:flex; gap:0.75rem;">
+              <button class="btn-dark" onclick="showPage('work')">Reserve My Spot</button>
+              <button class="btn-ghost">Trip Details</button>
+            </div>
+          </div>
+        </div>
+        <div class="trip-card">
+          <div class="trip-img trip-img-xmas" style="height:240px;"></div>
+          <div class="trip-body">
+            <div class="trip-date" contenteditable="false">December 2026 · 8 Days</div>
+            <div class="trip-title" contenteditable="false">Off the Beaten Track: Christmas Markets</div>
+            <p class="trip-desc" contenteditable="false">Skip the overcrowded markets everyone else visits. This journey takes you to Europe's most enchanting, lesser-known holiday experiences — rich with tradition, local flavor, and genuine magic.</p>
+            <div class="trip-price" contenteditable="false">From $[X] per person</div>
+            <div style="display:flex; gap:0.75rem;">
+              <button class="btn-dark" onclick="showPage('work')">Reserve My Spot</button>
+              <button class="btn-ghost">Trip Details</button>
+            </div>
+          </div>
+        </div>
+        <div class="trip-card">
+          <div class="trip-img trip-img-peru" style="height:240px;"></div>
+          <div class="trip-body">
+            <div class="trip-date" contenteditable="false">2026 · 9 Days</div>
+            <div class="trip-title" contenteditable="false">Ignite Your Life: Sacred Valley, Peru</div>
+            <p class="trip-desc" contenteditable="false">A transformative journey through one of the world's most sacred and breathtaking landscapes. This trip is as much about inner discovery as it is about extraordinary places.</p>
+            <div class="trip-price" contenteditable="false">From $[X] per person</div>
+            <div style="display:flex; gap:0.75rem;">
+              <button class="btn-dark" onclick="showPage('work')">Reserve My Spot</button>
+              <button class="btn-ghost">Trip Details</button>
+            </div>
+          </div>
+        </div>
+        <div class="trip-card">
+          <div class="trip-img trip-img-france" style="height:240px;"></div>
+          <div class="trip-body">
+            <div class="trip-date" contenteditable="false">2027 · Coming Soon</div>
+            <div class="trip-title" contenteditable="false">South of France</div>
+            <p class="trip-desc" contenteditable="false">Lavender fields, medieval villages, Michelin-starred meals, and the unhurried rhythm of Provence. Details coming soon — join the list to be first to know.</p>
+            <div class="trip-price" contenteditable="false">Pricing TBA</div>
+            <button class="btn-ghost">Notify Me When Available</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonial -->
+  <div class="section section-dark">
+    <div class="container-sm text-center">
+      <div class="testimonial" style="border-left:none; text-align:center;">
+        <p class="testimonial-text light" style="font-size:26px;" contenteditable="false">"Everything just made sense. It was supportive, down-to-earth, and honestly shifted how I see travel and myself."</p>
+        <div class="testimonial-attr light" contenteditable="false">— Robin T.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Who it's for -->
+  <div class="section">
+    <div class="container-sm">
+      <div class="section-eyebrow mb-1" contenteditable="false">Is this right for you?</div>
+      <h2 class="h2 mb-2" contenteditable="false">These trips are designed for you <em>if...</em></h2>
+      <ul class="bullet-list">
+        <li contenteditable="false">You want to travel but don't want to go alone</li>
+        <li contenteditable="false">You're tired of cookie-cutter group tours that rush you through every stop</li>
+        <li contenteditable="false">You want a luxury experience without spending months planning it</li>
+        <li contenteditable="false">You're ready for connection — with the destination and with other women who get it</li>
+        <li contenteditable="false">You're in a new chapter of life and want to mark it with something meaningful</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section section-sand">
+    <div class="container-sm">
+      <div class="section-eyebrow mb-1" contenteditable="false">Common questions</div>
+      <h2 class="h2 mb-2" contenteditable="false">Before you <em>reserve your spot</em></h2>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span contenteditable="false">Do I have to travel solo to join a group trip?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a" contenteditable="false">[Answer — can come with a friend, etc.]</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span contenteditable="false">What's included in the price?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a" contenteditable="false">[Answer — flights, hotels, meals, etc.]</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span contenteditable="false">How do I reserve my spot?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a" contenteditable="false">[Answer — deposit amount, process]</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span contenteditable="false">What if I need to cancel?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a" contenteditable="false">[Answer — cancellation/refund policy]</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span contenteditable="false">I've never done group travel — is this right for me?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a" contenteditable="false">Many of our travelers join for the first time having never done a group trip. Sandy's groups are designed to feel intimate, personal, and supportive — not like a bus tour. Book a free call and Sandy will walk you through what the experience feels like.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Capture -->
+  <div class="lead-magnet">
+    <div class="lead-magnet-text">
+      <h3 contenteditable="false">Don't see the perfect trip yet?</h3>
+      <p contenteditable="false">Join the list and be first to hear about new trips — including early access and subscriber-only spots.</p>
+    </div>
+    <div style="display:flex; gap:0; flex-shrink:0;">
+      <input class="form-input" type="email" placeholder="Your email address" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); color:var(--warm-white); width:260px;">
+      <button class="btn-primary">Yes, Notify Me</button>
+    </div>
+  </div>
+
+  <div class="section text-center">
+    <div class="container-sm">
+      <h2 class="h2 mb-1" contenteditable="false">Have questions before you <em>reserve your spot?</em></h2>
+      <p class="lead text-center mb-2" style="margin:0 auto 2rem;" contenteditable="false">Book a free Dream Trip Planning Call and we'll talk through which journey is the right fit for you.</p>
+      <button class="btn-dark" onclick="showPage('work')">Book a Free Call</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <span>© 2026 Just Travel With Sandy, LLC</span>
+      <div class="footer-legal"><a>Privacy Policy</a><a>Terms</a><a>Disclaimer</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: BLOG -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-blog" class="page">
+
+  <div class="section-sm section-dark">
+    <div class="container">
+      <div class="section-eyebrow light mb-1" contenteditable="false">Sandy's Blog</div>
+      <h1 class="h2 light mb-1" contenteditable="false">Luxury Travel Tips, Destination Guides<br>&amp; <em>Mindset for Women Who Travel</em></h1>
+      <p class="lead light" contenteditable="false">Real advice, honest stories, and practical inspiration — for women ready to travel with confidence.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <button class="filter-pill active">All</button>
+        <button class="filter-pill">Destination Guides</button>
+        <button class="filter-pill">Travel Tips</button>
+        <button class="filter-pill">Group Travel</button>
+        <button class="filter-pill">Mindset</button>
+        <button class="filter-pill">Family Travel</button>
+        <button class="filter-pill">Luxury Travel</button>
+      </div>
+
+      <!-- Featured Post -->
+      <div class="blog-card mb-2" style="display:grid; grid-template-columns:1fr 1fr; overflow:hidden;">
+        <div style="background:var(--sand); min-height:260px; display:flex; align-items:center; justify-content:center; color:var(--sand-dark); font-size:13px; letter-spacing:0.06em;">[ Featured post image ]</div>
+        <div style="padding:2rem;">
+          <div class="blog-tag" contenteditable="false">Destination Guide</div>
+          <h2 class="h3 mb-1" contenteditable="false">How to Experience China Without the Overwhelm: A Luxury Travel Guide for Women Over 50</h2>
+          <p class="body-text mb-2" contenteditable="false">China feels intimidating. It doesn't have to. Here's what every woman should know before planning her first trip — from navigating the language barrier to finding the luxury experiences most tourists miss.</p>
+          <div class="blog-meta" contenteditable="false">Sandy Colling · June 2026 · 8 min read</div>
+          <div class="mt-2"><button class="btn-ghost">Read More</button></div>
+        </div>
+      </div>
+
+      <!-- Post Grid -->
+      <div class="grid-3 mb-2">
+        <div class="blog-card">
+          <div class="blog-img"><span style="color:var(--sand-dark); font-size:12px; letter-spacing:0.06em;">[ Post image ]</span></div>
+          <div class="blog-body">
+            <div class="blog-tag" contenteditable="false">Travel Tips</div>
+            <div class="blog-title" contenteditable="false">Travel Advisor vs. DIY Planning: What Luxury Travelers Actually Save</div>
+            <div class="blog-meta" contenteditable="false">May 2026 · 5 min read</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img"><span style="color:var(--sand-dark); font-size:12px; letter-spacing:0.06em;">[ Post image ]</span></div>
+          <div class="blog-body">
+            <div class="blog-tag" contenteditable="false">Mindset</div>
+            <div class="blog-title" contenteditable="false">The Best Trips to Take After the Kids Leave Home</div>
+            <div class="blog-meta" contenteditable="false">May 2026 · 6 min read</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img"><span style="color:var(--sand-dark); font-size:12px; letter-spacing:0.06em;">[ Post image ]</span></div>
+          <div class="blog-body">
+            <div class="blog-tag" contenteditable="false">Group Travel</div>
+            <div class="blog-title" contenteditable="false">What to Expect on Your First Luxury Group Tour</div>
+            <div class="blog-meta" contenteditable="false">April 2026 · 7 min read</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inline Lead Magnet -->
+      <div class="lead-magnet mb-2" style="margin: 0 0 1.5rem;">
+        <div class="lead-magnet-text">
+          <h3 contenteditable="false">Free Download: The Confident Traveler's Guide</h3>
+          <p contenteditable="false">5 things every woman should know before booking a luxury trip abroad.</p>
+        </div>
+        <div style="display:flex; gap:0; flex-shrink:0;">
+          <input class="form-input" type="email" placeholder="Your email" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); color:var(--warm-white); width:220px;">
+          <button class="btn-primary">Download Free</button>
+        </div>
+      </div>
+
+      <!-- More Posts -->
+      <div class="grid-3">
+        <div class="blog-card">
+          <div class="blog-img"><span style="color:var(--sand-dark); font-size:12px; letter-spacing:0.06em;">[ Post image ]</span></div>
+          <div class="blog-body">
+            <div class="blog-tag" contenteditable="false">Luxury Travel</div>
+            <div class="blog-title" contenteditable="false">Solo Travel for Women Over 50: What Nobody Tells You</div>
+            <div class="blog-meta" contenteditable="false">April 2026 · 9 min read</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img"><span style="color:var(--sand-dark); font-size:12px; letter-spacing:0.06em;">[ Post image ]</span></div>
+          <div class="blog-body">
+            <div class="blog-tag" contenteditable="false">Family Travel</div>
+            <div class="blog-title" contenteditable="false">How to Plan a Luxury Family Trip Without the Chaos</div>
+            <div class="blog-meta" contenteditable="false">March 2026 · 6 min read</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img"><span style="color:var(--sand-dark); font-size:12px; letter-spacing:0.06em;">[ Post image ]</span></div>
+          <div class="blog-body">
+            <div class="blog-tag" contenteditable="false">Destination Guide</div>
+            <div class="blog-title" contenteditable="false">France Beyond Paris: The Regions Worth Your Time and Money</div>
+            <div class="blog-meta" contenteditable="false">March 2026 · 8 min read</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <span>© 2026 Just Travel With Sandy, LLC</span>
+      <div class="footer-legal"><a>Privacy Policy</a><a>Terms</a><a>Disclaimer</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: TRAVEL GUIDES -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-guides" class="page">
+
+  <div class="section-sm section-dark">
+    <div class="container">
+      <div class="section-eyebrow light mb-1" contenteditable="false">Digital Products</div>
+      <h1 class="h2 light mb-1" contenteditable="false">Luxury Travel Guides — <em>Curated by Sandy</em></h1>
+      <p class="lead light" contenteditable="false">Downloadable guides built for women who want to travel with confidence — packed with insider knowledge, practical logistics, and the details most travel blogs leave out.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <div class="grid-3 mb-2">
+        <div class="guide-card">
+          <div class="guide-cover guide-cover-1">
+            <div class="guide-cover-title" contenteditable="false">[Guide Title]</div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-title" contenteditable="false">[Guide Name]</div>
+            <p class="guide-desc" contenteditable="false">[2-sentence description — who it's for and what problem it solves]</p>
+            <div class="guide-price" contenteditable="false">$[Price]</div>
+            <div style="display:flex; gap:0.5rem;">
+              <button class="btn-dark" style="font-size:11px; padding:10px 16px;">Buy Now</button>
+              <button class="btn-ghost" style="font-size:11px; padding:10px 16px;">Preview</button>
+            </div>
+          </div>
+        </div>
+        <div class="guide-card">
+          <div class="guide-cover guide-cover-2">
+            <div class="guide-cover-title" contenteditable="false">[Guide Title]</div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-title" contenteditable="false">[Guide Name]</div>
+            <p class="guide-desc" contenteditable="false">[2-sentence description — who it's for and what problem it solves]</p>
+            <div class="guide-price" contenteditable="false">$[Price]</div>
+            <div style="display:flex; gap:0.5rem;">
+              <button class="btn-dark" style="font-size:11px; padding:10px 16px;">Buy Now</button>
+              <button class="btn-ghost" style="font-size:11px; padding:10px 16px;">Preview</button>
+            </div>
+          </div>
+        </div>
+        <div class="guide-card" style="border:1.5px solid #AAAAAA;">
+          <div class="guide-cover guide-cover-free">
+            <div class="guide-cover-title" contenteditable="false">The Confident Traveler's Guide</div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-title" contenteditable="false">The Confident Traveler's Guide</div>
+            <p class="guide-desc" contenteditable="false">Sandy's free starter guide — 5 things every woman should know before booking a luxury trip abroad. The perfect first step.</p>
+            <div class="guide-price" style="color:var(--muted);" contenteditable="false">Free</div>
+            <div style="display:flex; gap:0; margin-top:0.5rem;">
+              <input class="form-input" type="email" placeholder="Your email" style="width:100%; border-right:none;">
+              <button class="btn-dark" style="font-size:11px; padding:10px 16px; white-space:nowrap;">Download</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guide detail -->
+      <div class="card mb-2">
+        <div class="grid-2" style="gap:2rem;">
+          <div>
+            <div class="section-eyebrow mb-1" contenteditable="false">[Guide name] — $[Price]</div>
+            <h3 class="h3 mb-1" contenteditable="false">What's inside</h3>
+            <ul class="offer-list">
+              <li contenteditable="false">[Key topic or chapter 1]</li>
+              <li contenteditable="false">[Key topic or chapter 2]</li>
+              <li contenteditable="false">[Key topic or chapter 3]</li>
+              <li contenteditable="false">[Key topic or chapter 4]</li>
+              <li contenteditable="false">[Key topic or chapter 5]</li>
+            </ul>
+          </div>
+          <div>
+            <p class="body-text mb-2" contenteditable="false">[2–3 sentence description — who it's for, what problem it solves, and what the reader will be able to do after. Focus on the transformation, not just the contents.]</p>
+            <button class="btn-dark">Buy Now — $[Price]</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cross-sell -->
+      <div class="section-accent" style="padding:2.5rem; display:flex; align-items:center; justify-content:space-between; gap:2rem; flex-wrap:wrap;">
+        <div>
+          <h3 class="h3 mb-1" contenteditable="false">Want this done for you instead?</h3>
+          <p class="body-text" contenteditable="false">If you'd rather have a completely custom itinerary built around your specific trip, that's exactly what I do. Let's talk.</p>
+        </div>
+        <button class="btn-dark" onclick="showPage('work')">Book Your Dream Trip Call</button>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <span>© 2026 Just Travel With Sandy, LLC</span>
+      <div class="footer-legal"><a>Privacy Policy</a><a>Terms</a><a>Disclaimer</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- EDIT BAR -->
+<div class="edit-bar">
+  <span class="edit-bar-label">Prototype</span>
+  <button class="edit-toggle" id="editBtn" onclick="toggleEditMode()">Edit Copy</button>
+</div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + id);
+    if (target) {
+      target.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+  }
+
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const answer = item.querySelector('.faq-a');
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-a.open').forEach(a => {
+      a.classList.remove('open');
+      a.parentElement.classList.remove('open');
+    });
+    if (!isOpen) {
+      answer.classList.add('open');
+      item.classList.add('open');
+    }
+  }
+
+  function selectSlot(el) {
+    document.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function scrollToBooking() {
+    showPage('work');
+    setTimeout(() => {
+      const el = document.getElementById('booking-section');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+
+  function toggleEditMode() {
+    const body = document.body;
+    const btn = document.getElementById('editBtn');
+    const isEdit = body.classList.toggle('edit-mode');
+    document.querySelectorAll('[contenteditable]').forEach(el => {
+      el.contentEditable = isEdit ? 'true' : 'false';
+    });
+    btn.classList.toggle('active', isEdit);
+    btn.textContent = isEdit ? 'Done Editing' : 'Edit Copy';
+  }
+
+  document.querySelectorAll('.filter-pill').forEach(pill => {
+    pill.addEventListener('click', function() {
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
