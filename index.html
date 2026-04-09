@@ -309,12 +309,17 @@
     transition: all var(--transition);
   }
   .offer-card.featured {
-    border: 1.5px solid var(--espresso);
-    background: var(--espresso); color: var(--warm-white);
+    border: 1.5px solid var(--accent);
+    background: var(--accent); color: var(--warm-white);
   }
   .offer-tag {
     font-size: 10px; font-weight: 500; letter-spacing: 0.15em;
     text-transform: uppercase; color: var(--charcoal);
+    margin-bottom: 1rem; display: block;
+  }
+  .offer-tag-light {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--cream);
     margin-bottom: 1rem; display: block;
   }
   .offer-title {
@@ -648,19 +653,15 @@
     </div>
   </div>
 
-  <!-- Trust Bar -->
-  <div class="trust-bar">
-    <div class="trust-item"><div class="trust-dot"></div><img style="width:250px;"" src="https://media.foratravel.com/image/upload/v1715287680/fora-website-assets/snp9bmzrjdxxdjlivbm8.svg?w=80&q=90"></div>
-    
-  </div>
+
 
   <!-- Problem -->
   <div class="section">
     <div class="container-sm">
-      <div class="section-eyebrow" contenteditable="false">Sound familiar?</div>
-      <h2 class="h2 mb-1" contenteditable="false">You've been dreaming about<br>this trip for years. <em>So why<br>haven't you gone?</em></h2>
-      <p class="lead mb-2" contenteditable="false">Too many options. Too many tabs. Too many "what ifs." You're not unmotivated — you're overwhelmed. And the longer you wait, the more that trip stays a dream instead of a memory.</p>
-      <p class="lead" contenteditable="false">Whether you want someone to handle every single detail or you just need a plan and a push — I've got you.</p>
+      
+      <h2 class="h2 mb-1" contenteditable="false">You've been picturing this trip for years. <em>It's time to actually take it.</em></h2>
+      <p class="lead mb-2" contenteditable="false">The longer you wait, the more that trip stays a dream instead of a memory.</p>
+      <p class="lead" contenteditable="false">Whether you want someone to handle every single detail or you just need a plan and a push, I've got you covered.</p>
     </div>
   </div>
 
@@ -672,9 +673,9 @@
       <div class="section-eyebrow text-center mb-2" contenteditable="false">Two ways to travel with Sandy</div>
       <div class="grid-2">
         <div class="offer-card featured">
-          <span class="offer-tag">Most popular</span>
+          <span class="offer-tag-light">Most popular</span>
           <div class="offer-title" contenteditable="false">Private Luxury<br>Travel Planning</div>
-          <p class="offer-desc" contenteditable="false">Done-for-you, bespoke itineraries built around your style, your pace, and your life. You pack. I handle everything else.</p>
+          <p class="offer-desc" contenteditable="false">Done-for-you, presonalized bespoke itineraries built and booked for you.</p>
           <ul class="offer-list">
             <li contenteditable="false">Deep-dive planning session</li>
             <li contenteditable="false">Fully custom itinerary</li>
@@ -707,13 +708,12 @@
       <div class="grid-2" style="gap:4rem; align-items:center;">
         <div>
           <div class="section-eyebrow mb-1" contenteditable="false">Why travel with Sandy</div>
-          <h2 class="h2 mb-1" contenteditable="false">I don't just plan trips.<br><em>I design experiences<br>that stay with you.</em></h2>
-          <p class="body-text mb-2" contenteditable="false">Most travel advisors hand you an itinerary and wish you luck. I do something different. I work with the whole picture — your comfort level, your pace, your goals — so that every trip feels effortless before you even board the plane.</p>
-          <p class="body-text mb-2" contenteditable="false">My clients don't just return with photos. They return changed.</p>
+          <h2 class="h2 mb-1" contenteditable="false">The trip you pictured with perks you didn't expect.</h2>
+          <p class="body-text mb-2" contenteditable="false">I manage every detail before and during your trip so your only job is to enjoy it. But the real difference? The upgrades, exclusive access, and insider perks my clients get that no booking site can offer.</p>
           <button class="btn-ghost" onclick="showPage('about')">Meet Sandy</button>
         </div>
         <div style="background:var(--sand); height:400px; display:flex; align-items:center; justify-content:center; color:var(--sand-dark); font-size:13px; letter-spacing:0.08em;">
-          [ Sandy's photo ]
+          [ photo ]
         </div>
       </div>
     </div>
@@ -726,7 +726,7 @@
       <div class="grid-3">
         <div class="testimonial">
           <p class="testimonial-text light" contenteditable="false">"Everything just made sense. It was supportive, down-to-earth, and honestly shifted how I see travel and myself."</p>
-          <div class="testimonial-attr light" contenteditable="false">— Robin T.</div>
+          <div class="testimonial-attr light" contenteditable="false">— [Client Name], [City]</div>
         </div>
         <div class="testimonial">
           <p class="testimonial-text light" contenteditable="false">"Sandy handled every single detail and I didn't have to think about a thing. It was the most relaxed I've ever been on a trip."</p>
@@ -743,8 +743,8 @@
   <!-- Lead Magnet -->
   <div class="lead-magnet">
     <div class="lead-magnet-text">
-      <h3 contenteditable="false">Not ready to book yet? Start here — it's free.</h3>
-      <p contenteditable="false">Download <em>The Confident Traveler's Guide</em> — 5 things every woman should know before booking a luxury trip abroad.</p>
+      <h2 contenteditable="false">Not ready to book yet? Start here — it's free.</h2>
+      <h3 contenteditable="false">Download <em>The Confident Traveler's Guide</em> — 5 things every woman should know before booking a luxury trip abroad.</h3>
     </div>
     <div style="display:flex; gap:0; flex-shrink:0;">
       <input class="form-input" type="email" placeholder="Your email address" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); color:var(--warm-white); width:260px;">
@@ -812,6 +812,7 @@
       <div>
         <div class="footer-logo">Just <span>Travel</span> With Sandy</div>
         <p class="footer-tagline" contenteditable="false">Luxury travel planning and curated group journeys for women ready to experience the world with confidence and ease.</p>
+        <div class="footer-fora-logo"><img style="width:250px;"" src="https://media.foratravel.com/image/upload/v1715287680/fora-website-assets/snp9bmzrjdxxdjlivbm8.svg?w=80&q=90"></div>
         <div class="social-row">
           <div class="social-icon">f</div>
           <div class="social-icon">in</div>
